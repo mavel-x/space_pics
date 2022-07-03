@@ -1,5 +1,5 @@
 # space_pics
-Fetch images from NASA and SpaceX and save them on disk.
+Post images from NASA and SpaceX on a Telegram channel.
 
 ## How to Install
 
