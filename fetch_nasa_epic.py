@@ -6,7 +6,9 @@ import argparse
 from file_operations import save_remote_image
 
 
-def fetch_epic(api_key, date=None):
+def fetch_epic(date=None):
+    load_dotenv()
+    api_key = os.getenv('NASA_KEY')
     url = f'https://api.nasa.gov/EPIC/api/natural/'
     if date:
         url += f'date/{date}'
@@ -31,8 +33,6 @@ def fetch_epic(api_key, date=None):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    api_key = os.getenv('NASA_KEY')
     parser = argparse.ArgumentParser(
         description=(
             "Fetch images from DSCOVR's Earth Polychromatic Imaging Camera.")
@@ -44,5 +44,5 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     print('Getting images from NASA EPIC...')
-    fetch_epic(api_key, args.date)
+    fetch_epic(args.date)
     print('Images saved.')
