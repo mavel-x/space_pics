@@ -15,7 +15,6 @@ def fetch_spacex_latest_launch():
         img_links = json[search_index]['links']['flickr']['original']
     for index, link in enumerate(img_links):
         save_remote_image(link, f'spacex_{index}.jpg')
-    print('Images saved.')
 
 
 def fetch_spacex_launch_by_id(launch_id):
@@ -29,7 +28,6 @@ def fetch_spacex_launch_by_id(launch_id):
         return
     for index, link in enumerate(img_links):
         save_remote_image(link, f'spacex_{launch_id}_{index}.jpg')
-    print('Images saved.')
 
 
 if __name__ == '__main__':
@@ -40,7 +38,9 @@ if __name__ == '__main__':
         help='Launch id (default: latest)',
     )
     args = parser.parse_args()
+    print('Getting images from SpaceX...')
     if args.launch_id:
         fetch_spacex_launch_by_id(args.launch_id)
     else:
         fetch_spacex_latest_launch()
+    print('Images saved.')

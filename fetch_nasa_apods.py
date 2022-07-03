@@ -18,7 +18,6 @@ def fetch_random_apods(api_key, number_of_imgs=10):
     for index, image in enumerate(images):
         extension = get_file_extension(image)
         save_remote_image(image, f'nasa_apod_{index}{extension}')
-    print('Images saved.')
 
 
 if __name__ == '__main__':
@@ -38,4 +37,6 @@ if __name__ == '__main__':
         help='Number of images (default: 10).',
     )
     args = parser.parse_args()
+    print('Getting images from NASA APOD...')
     fetch_random_apods(api_key, args.number_of_imgs)
+    print('Images saved.')
