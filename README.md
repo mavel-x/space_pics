@@ -39,6 +39,8 @@ Optionally, you can use [virtualenv](https://docs.python-guide.org/dev/virtualen
 to install the packages inside a virtual environment and not on your entire system. 
 In this case you will need to run the script from the virtual environment as well.
 
+## How to Use
+
 ### Download space pics
 Open the terminal and run:
 ```console
