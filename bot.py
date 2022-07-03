@@ -13,15 +13,6 @@ if __name__ == "__main__":
     post_frequency = os.getenv('POST_FREQUENCY')
     if not post_frequency:
         post_frequency = 4
-    # while True:
-    #     for image in images:
-    #         with open(image, 'rb') as file:
-    #             if image.suffix == '.gif':
-    #                 bot.send_animation(chat_id=chat_id, animation=file)
-    #             else:
-    #                 bot.send_photo(chat_id=chat_id, photo=file)
-    #         time.sleep(3600 * args.frequency)
-    #     shuffle(images)
 
     parser = argparse.ArgumentParser(
         description='Post space images from images directory every N hours.'
