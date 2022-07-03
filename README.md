@@ -1,5 +1,5 @@
 # space_pics
-Post images from NASA and SpaceX on a Telegram channel.
+Post images from NASA and SpaceX on your Telegram channel.
 
 ## How to Install
 
@@ -48,11 +48,11 @@ $ python3 path/to/the/script/fetch_all_images.py
 ```
 A directory called "images" will be created in the project directory and filled with space pics.
 
-Alternatively, you can download only pictures from a specific API with the scripts fetch_nasa_apods.py,
-fetch_nasa_epic.py, and fetch_spacex_images.py. To find out how to use them, run the scripts with the argument `-h`. 
+Alternatively, you can download only pictures from a specific API with the scripts **fetch_nasa_apods.py**,
+**fetch_nasa_epic.py**, and **fetch_spacex_images.py**. To find out how to use them, run the scripts with the argument `-h`.
 
 ### Post a single image on your Telegram channel
-Run one_post.py with the name of the image you would like send as an argument. 
+Run **one_post.py**, passing name of the image you would like send as an argument. 
 Only files from the images directory inside the project directory are allowed.
 ```console
 $ python3 one_post.py image.png
@@ -62,7 +62,7 @@ If no argument is passed, a random image is chosen.
 $ python3 one_post.py
 ```
 ### Post pictures on your Telegram channel while you sleep
-The auto_post.py script will run in an infinite loop until interrupted (Ctrl+C). Start it from the terminal:
+The **auto_post.py** script will run in an infinite loop until interrupted (Ctrl+C). Start it from the terminal:
 ```console
 $ python3 auto_post.py
 ```
