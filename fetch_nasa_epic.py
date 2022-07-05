@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     print('Getting images from NASA EPIC...')
     try:
-        fetch_epic(args.date)
+        fetch_epic(api_key, args.date)
         print('Images saved.')
     except requests.exceptions.HTTPError as error:
         print(f'An HTTP Error occurred. Status code: {error.response.status_code}'
