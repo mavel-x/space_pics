@@ -23,9 +23,7 @@ def fetch_spacex_launch_by_id(launch_id):
     response.raise_for_status()
     launch = response.json()
     img_links = launch['links']['flickr']['original']
-    if not img_links:
-        print('Sorry, no images for this launch.')
-        return
+    assert img_links
     for index, link in enumerate(img_links):
         save_remote_image(link, f'spacex_{launch_id}_{index}.jpg')
 
@@ -38,9 +36,14 @@ if __name__ == '__main__':
         help='Launch id (default: latest)',
     )
     args = parser.parse_args()
+
     print('Getting images from SpaceX...')
     if args.launch_id:
-        fetch_spacex_launch_by_id(args.launch_id)
+        try:
+            fetch_spacex_launch_by_id(args.launch_id)
+            print('Images saved.')
+        except AssertionError:
+            print('Sorry, no images for this launch.')
     else:
         fetch_spacex_latest_launch()
-    print('Images saved.')
+        print('Images saved.')

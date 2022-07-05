@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from file_operations import save_remote_image, get_file_extension_from_url
 
 
-def fetch_random_apods(number_of_imgs=10):
-    api_key = os.getenv('NASA_KEY')
+def fetch_random_apods(api_key, number_of_imgs=10):
     url = 'https://api.nasa.gov/planetary/apod'
     params = {
         'api_key': api_key,
@@ -36,7 +35,9 @@ if __name__ == '__main__':
         help='Number of images (default: 10).',
     )
     args = parser.parse_args()
+
     load_dotenv()
+    api_key = os.getenv('NASA_KEY')
 
     print('Getting images from NASA APOD...')
     fetch_random_apods(args.number_of_imgs)

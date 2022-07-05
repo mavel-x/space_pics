@@ -6,20 +6,15 @@ import argparse
 from file_operations import save_remote_image
 
 
-def fetch_epic(date=None):
-    api_key = os.getenv('NASA_KEY')
+def fetch_epic(api_key, date=None):
     url = f'https://api.nasa.gov/EPIC/api/natural/'
     if date:
         url += f'date/{date}'
     params = {
         'api_key': api_key,
     }
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as error:
-        print(error)
-        return
+    response = requests.get(url, params=params)
+    response.raise_for_status()
     images = response.json()
     for index, image in enumerate(images):
         if index % 4:
@@ -42,8 +37,13 @@ if __name__ == '__main__':
         help='Date of shots (default: latest). Format: YYYY-MM-DD.',
     )
     args = parser.parse_args()
+
     load_dotenv()
+    api_key = os.getenv('NASA_KEY')
 
     print('Getting images from NASA EPIC...')
-    fetch_epic(args.date)
-    print('Images saved.')
+    try:
+        fetch_epic(args.date)
+        print('Images saved.')
+    except requests.exceptions.HTTPError as error:
+        print(f'An HTTP Error occurred. Status code: {error.response.status_code}')
