@@ -40,7 +40,6 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    print('Getting images from SpaceX...')
     if args.launch_id:
         try:
             fetch_spacex_launch_by_id(args.launch_id)

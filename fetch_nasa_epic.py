@@ -39,7 +39,6 @@ if __name__ == '__main__':
     load_dotenv()
     api_key = os.getenv('NASA_KEY')
 
-    print('Getting images from NASA EPIC...')
     try:
         fetch_epic(api_key, args.date)
         print('Images saved.')

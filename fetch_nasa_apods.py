@@ -39,6 +39,5 @@ if __name__ == '__main__':
     load_dotenv()
     api_key = os.getenv('NASA_KEY')
 
-    print('Getting images from NASA APOD...')
     fetch_random_apods(api_key, args.number_of_imgs)
     print('Images saved.')
