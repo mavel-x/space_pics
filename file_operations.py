@@ -13,7 +13,7 @@ def save_remote_image(url, filename, params=None):
         file.write(response.content)
 
 
-def get_file_extension(url):
+def get_file_extension_from_url(url):
     path = urlsplit(url).path
     root, extension = os.path.splitext(path)
     return extension

@@ -2,7 +2,7 @@ import os
 import argparse
 import requests
 from dotenv import load_dotenv
-from file_operations import save_remote_image, get_file_extension
+from file_operations import save_remote_image, get_file_extension_from_url
 
 
 def fetch_random_apods(number_of_imgs=10):
@@ -14,11 +14,11 @@ def fetch_random_apods(number_of_imgs=10):
     }
     response = requests.get(url, params=params)
     response.raise_for_status()
-    json = response.json()
-    images = [apod['url'] for apod in json if apod['media_type'] == 'image']
-    for index, image in enumerate(images):
-        extension = get_file_extension(image)
-        save_remote_image(image, f'nasa_apod_{index}{extension}')
+    apods = response.json()
+    image_links = [apod['url'] for apod in apods if apod['media_type'] == 'image']
+    for index, link in enumerate(image_links):
+        extension = get_file_extension_from_url(link)
+        save_remote_image(link, f'nasa_apod_{index}{extension}')
 
 
 if __name__ == '__main__':
