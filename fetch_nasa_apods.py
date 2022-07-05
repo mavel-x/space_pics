@@ -15,7 +15,7 @@ def fetch_random_apods(api_key, number_of_imgs=10):
     response.raise_for_status()
     apods = response.json()
     image_links = [apod['url'] for apod in apods if apod['media_type'] == 'image']
-    for index, link in enumerate(image_links):
+    for index, link in enumerate(image_links, 1):
         extension = get_file_extension_from_url(link)
         save_remote_image(link, f'nasa_apod_{index}{extension}')
 

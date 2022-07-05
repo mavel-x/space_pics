@@ -13,7 +13,7 @@ def fetch_spacex_latest_launch():
     while not img_links:
         search_index -= 1
         img_links = launches[search_index]['links']['flickr']['original']
-    for index, link in enumerate(img_links):
+    for index, link in enumerate(img_links, 1):
         save_remote_image(link, f'spacex_{index}.jpg')
 
 
@@ -24,7 +24,7 @@ def fetch_spacex_launch_by_id(launch_id):
     launch = response.json()
     img_links = launch['links']['flickr']['original']
     assert img_links
-    for index, link in enumerate(img_links):
+    for index, link in enumerate(img_links, 1):
         save_remote_image(link, f'spacex_{launch_id}_{index}.jpg')
 
 

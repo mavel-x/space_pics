@@ -16,14 +16,12 @@ def fetch_epic(api_key, date=None):
     response = requests.get(url, params=params)
     response.raise_for_status()
     images = response.json()
-    for index, image in enumerate(images):
-        if index % 4:
-            continue
+    for index, image in enumerate(images[::4], 1):
         date = datetime.fromisoformat(image['date']).strftime('%Y/%m/%d')
         image_id = image['image']
         image_url = (f'https://api.nasa.gov/EPIC/archive/natural/'
                      f'{date}/png/{image_id}.png')
-        save_remote_image(image_url, f'epic{index // 4}.png', params)
+        save_remote_image(image_url, f'epic_{index}.png', params)
 
 
 if __name__ == '__main__':
@@ -46,4 +44,5 @@ if __name__ == '__main__':
         fetch_epic(args.date)
         print('Images saved.')
     except requests.exceptions.HTTPError as error:
-        print(f'An HTTP Error occurred. Status code: {error.response.status_code}')
+        print(f'An HTTP Error occurred. Status code: {error.response.status_code}'
+              f'{error}')
