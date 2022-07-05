@@ -7,7 +7,6 @@ from file_operations import save_remote_image
 
 
 def fetch_epic(date=None):
-    load_dotenv()
     api_key = os.getenv('NASA_KEY')
     url = f'https://api.nasa.gov/EPIC/api/natural/'
     if date:
@@ -43,6 +42,8 @@ if __name__ == '__main__':
         help='Date of shots (default: latest). Format: YYYY-MM-DD.',
     )
     args = parser.parse_args()
+    load_dotenv()
+
     print('Getting images from NASA EPIC...')
     fetch_epic(args.date)
     print('Images saved.')

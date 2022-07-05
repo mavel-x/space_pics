@@ -6,7 +6,6 @@ from file_operations import save_remote_image, get_file_extension
 
 
 def fetch_random_apods(number_of_imgs=10):
-    load_dotenv()
     api_key = os.getenv('NASA_KEY')
     url = 'https://api.nasa.gov/planetary/apod'
     params = {
@@ -37,6 +36,8 @@ if __name__ == '__main__':
         help='Number of images (default: 10).',
     )
     args = parser.parse_args()
+    load_dotenv()
+
     print('Getting images from NASA APOD...')
     fetch_random_apods(args.number_of_imgs)
     print('Images saved.')
