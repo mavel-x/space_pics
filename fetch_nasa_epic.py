@@ -16,7 +16,7 @@ def fetch_epic(api_key, date=None):
     response = requests.get(url, params=params)
     response.raise_for_status()
     images = response.json()
-    for index, image in enumerate(images[::4], 1):
+    for index, image in enumerate(images[::4], 1):  # Skip similar images until the Earth has rotated more
         date = datetime.fromisoformat(image['date']).strftime('%Y/%m/%d')
         image_id = image['image']
         image_url = (f'https://api.nasa.gov/EPIC/archive/natural/'

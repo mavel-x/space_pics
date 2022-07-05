@@ -3,11 +3,14 @@ import argparse
 from file_operations import save_remote_image
 
 
-def fetch_spacex_latest_launch():
+def fetch_spacex_latest_images():
     url = 'https://api.spacexdata.com/v5/launches/'
     response = requests.get(url)
     response.raise_for_status()
     launches = response.json()
+
+    # Not all launches have images, so we search backwards starting at the latest one
+    # until we find a launch that has some images.
     search_index = -1
     img_links = launches[search_index]['links']['flickr']['original']
     while not img_links:
@@ -45,5 +48,5 @@ if __name__ == '__main__':
         except AssertionError:
             print('Sorry, no images for this launch.')
     else:
-        fetch_spacex_latest_launch()
+        fetch_spacex_latest_images()
         print('Images saved.')
