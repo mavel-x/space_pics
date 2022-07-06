@@ -10,7 +10,8 @@ def save_remote_image(url, filename, params=None):
     response = requests.get(url, params)
     response.raise_for_status()
     with open(file, 'wb') as file:
-        file.write(response.content)
+        for chunk in response.iter_content(chunk_size=128):
+            file.write(chunk)
 
 
 def get_file_extension_from_url(url):
