@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+import datetime
 from dotenv import load_dotenv
 import os
 import argparse
@@ -16,12 +16,14 @@ def fetch_epic(api_key, date=None):
     response = requests.get(url, params=params)
     response.raise_for_status()
     images = response.json()
-    for index, image in enumerate(images[::4], 1):  # Skip similar images until the Earth has rotated more
-        date = datetime.fromisoformat(image['date']).strftime('%Y/%m/%d')
+    for index, image in enumerate(images[::3], 1):  # Skip similar images until the Earth has rotated more
+        date = datetime.datetime.fromisoformat(image['date']).strftime('%Y/%m/%d')
+        date_for_description = date.replace('/', '-')
         image_id = image['image']
         image_url = (f'https://api.nasa.gov/EPIC/archive/natural/'
                      f'{date}/png/{image_id}.png')
-        save_remote_image(image_url, f'epic_{index}.png', params)
+        description = f'A photo made by EPIC on {date_for_description}'
+        save_remote_image(image_url, f'epic_{index}.png', description, params)
 
 
 if __name__ == '__main__':

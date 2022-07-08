@@ -4,9 +4,12 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 
-def save_remote_image(url, filename, params=None):
+def save_remote_image(url, img_filename, description, params=None):
+    Path('descriptions').mkdir(exist_ok=True)
+    with open(f'descriptions/{img_filename}.txt', 'w') as file:
+        file.write(description)
     Path("images").mkdir(exist_ok=True)
-    file = f'images/{filename}'
+    file = f'images/{img_filename}'
     response = requests.get(url, params)
     response.raise_for_status()
     with open(file, 'wb') as file:

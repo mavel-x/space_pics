@@ -3,7 +3,19 @@ import argparse
 import requests
 from dotenv import load_dotenv
 from datetime import date, timedelta
-from file_operations import save_remote_image, get_file_extension_from_url
+from file_operations import get_file_extension_from_url, save_remote_image
+
+
+def save_apods_with_descriptions(apods):
+    for index, image in enumerate(apods, 1):
+        url = image['url']
+        extension = get_file_extension_from_url(url)
+        img_filename = f'nasa_apod_random_{index}{extension}'
+        description = (
+            f'{image["title"]}\n'
+            f'{image["explanation"]}\n'
+        )
+        save_remote_image(url, img_filename, description)
 
 
 def fetch_random_apods(api_key, number_of_imgs=10):
@@ -15,10 +27,8 @@ def fetch_random_apods(api_key, number_of_imgs=10):
     response = requests.get(url, params=params)
     response.raise_for_status()
     apods = response.json()
-    image_links = [apod['url'] for apod in apods if apod['media_type'] == 'image']
-    for index, link in enumerate(image_links, 1):
-        extension = get_file_extension_from_url(link)
-        save_remote_image(link, f'nasa_apod_random_{index}{extension}')
+    images = [apod for apod in apods if apod['media_type'] == 'image']
+    save_apods_with_descriptions(images)
 
 
 def fetch_latest_apods(api_key, number_of_days):
@@ -33,10 +43,8 @@ def fetch_latest_apods(api_key, number_of_days):
     response = requests.get(url, params=params)
     response.raise_for_status()
     apods = response.json()
-    image_links = [apod['url'] for apod in apods if apod['media_type'] == 'image']
-    for index, link in enumerate(image_links, 1):
-        extension = get_file_extension_from_url(link)
-        save_remote_image(link, f'nasa_apod_latest_{index}{extension}')
+    images = [apod for apod in apods if apod['media_type'] == 'image']
+    save_apods_with_descriptions(images)
 
 
 if __name__ == '__main__':

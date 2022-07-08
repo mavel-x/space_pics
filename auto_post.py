@@ -1,10 +1,10 @@
 from telegram import Bot
 from dotenv import load_dotenv
 import os
-from pathlib import Path
 from random import shuffle
 import time
 import argparse
+from one_post import send_image
 
 if __name__ == "__main__":
     load_dotenv()
@@ -27,15 +27,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     bot = Bot(token=token)
-    images_dir = Path('images')
-    images = [image for image in images_dir.iterdir()]
+    images = [image for image in os.listdir('images')]
 
     while True:
         for image in images:
-            with open(image, 'rb') as file:
-                if image.suffix == '.gif':
-                    bot.send_animation(chat_id=chat_id, animation=file)
-                else:
-                    bot.send_photo(chat_id=chat_id, photo=file)
+            send_image(image, bot, chat_id)
             time.sleep(3600 * args.frequency)
         shuffle(images)
