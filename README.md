@@ -77,13 +77,7 @@ or pass the desired number of hours to the script when you run it:
 $ python3 path/to/the/script/bot.py 6
 ```
 
-## Project Purpose
-
-The code is written for educational purposes as part of 
-an online course for web developers at [dvmn.org](https://dvmn.org/).
-
 ## References
 - [NASA Open APIs Guide](https://dev.bitly.com/get_started.html)
 - [SpaceX API Guide](https://github.com/r-spacex/SpaceX-API)
 - [Pipenv & Virtual Environments](https://docs.python-guide.org/dev/virtualenvs/)
-- [dvmn.org](https://dvmn.org/)
